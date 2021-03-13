@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import Profile from './Profile';
 import Api from '../api/Api';
 import CardContainer from './CardContainer';
-import PopupWithImage from './PopupWithImage';
+import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm';
 
 export default function Main() {
@@ -206,7 +206,7 @@ export default function Main() {
       <main>
         <Profile user={user} funcs={profileFuncs}/>
         <CardContainer cards={cards} user={user} funcs={cardFuncs}/>
-        { popupWithImage.active && <PopupWithImage card={popupWithImage.card} closeFunc={closePopupWithImage}/>}
+        { popupWithImage.active && <ImagePopup card={popupWithImage.card} closeFunc={closePopupWithImage}/>}
         { newPlaceActive && <PopupWithForm {...addPlaceFields}/>}
         { editAvatarActive && <PopupWithForm {...editAvatarFields}/>}
         { profilePopupActive && <PopupWithForm {...editProfileFields}/>}
