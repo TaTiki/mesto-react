@@ -14,7 +14,9 @@ export default function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardCl
     ]).then(([user, cards]) => {
       setUser(user);
       setCards(cards);
-    }).catch(console.log);
+    }).catch((err) => {
+      console.log(err)
+    });
     /*api.getUser()
     .then(setUser).catch(console.log);
 
