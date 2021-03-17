@@ -35,33 +35,6 @@ function App() {
     setSelectedCard({});
   };
 
-  const avatarPopupFields = (
-    <>
-      <input className="form__input" type="url"
-      placeholder="Ссылка на картинку" id="edit-avatar-link" required/>
-    </>
-  );
-
-  const editProfilePopupFields = (
-    <>
-      <input className="form__input" type="text" id="edit-profile-name" 
-      placeholder="имя" required minLength="2" maxLength="40"/>
-
-      <input className="form__input" type="text" id="edit-profile-hobby"
-      placeholder="хобби" required minLength="2" maxLength="200"/>
-    </>
-  );
-
-  const addPlacePopupFields = (
-    <>
-      <input className="form__input" type="text" placeholder="Название"
-      id="add-place-name" required minLength="2" maxLength="30"/>
-
-      <input className="form__input" type="url"
-      placeholder="Ссылка на картинку" id="add-place-link" required/>
-    </>
-  );
-
   return (
     <div className="page">
       <Header/>
@@ -69,13 +42,31 @@ function App() {
       onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick}
       onCardClick={handleCardClick}/>
       <PopupWithForm name="edit-profile" title="Редактировать профиль"
-      inputs={editProfilePopupFields} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}/>
+      isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
+
+        <input className="form__input" type="text" id="edit-profile-name" 
+        placeholder="имя" required minLength="2" maxLength="40"/>
+
+        <input className="form__input" type="text" id="edit-profile-hobby"
+        placeholder="хобби" required minLength="2" maxLength="200"/>
+      </PopupWithForm>
 
       <PopupWithForm name="add-place" title="Новое место"
-      inputs={addPlacePopupFields} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}/>
+      isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
+
+        <input className="form__input" type="text" placeholder="Название"
+        id="add-place-name" required minLength="2" maxLength="30"/>
+
+        <input className="form__input" type="url"
+        placeholder="Ссылка на картинку" id="add-place-link" required/>
+      </PopupWithForm>
 
       <PopupWithForm name="edit-avatar" title="Обновить аватар"
-      inputs={avatarPopupFields} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}/>
+      isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
+
+        <input className="form__input" type="url"
+        placeholder="Ссылка на картинку" id="edit-avatar-link" required/>
+      </PopupWithForm>
 
       <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
 

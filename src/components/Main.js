@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Api from '../utils/Api';
+import api from '../utils/api';
 import Card from './Card';
 
 export default function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
@@ -8,18 +8,19 @@ export default function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardCl
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    const api = new Api({
-      baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-20',
-      headers: {
-        authorization: '6577e49f-15b9-4798-93b6-109a6b031458',
-      },
-      timeout: 20000,
-    });
-    api.getUser()
+    Promise.all([
+      api.getUser(),
+      api.getInitialCards(),
+    ]).then(([user, cards]) => {
+      setUser(user);
+      setCards(cards);
+    }).catch(console.log);
+    /*api.getUser()
     .then(setUser).catch(console.log);
 
     api.getInitialCards()
     .then(setCards).catch(console.log);
+    */
   }, []);
 
   return (

@@ -1,4 +1,4 @@
-export default function PopupWithForm({ title, name, isOpen, inputs, onClose}) {
+export default function PopupWithForm({ title, name, isOpen, children, onClose}) {
   return (
     <div className={isOpen ? `popup popup_type_${name} popup_opened`:
     `popup popup_type_${name}`}>
@@ -7,7 +7,7 @@ export default function PopupWithForm({ title, name, isOpen, inputs, onClose}) {
         <form className="form" name={name} noValidate onSubmit={(evt) => {evt.preventDefault()}}>
           <h3 className="form__header">{title}</h3>
           <fieldset className="form__fieldset">
-            {inputs}
+            {children}
             <button
             className="form__save-btn"
             type="submit"
