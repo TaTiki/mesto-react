@@ -2,7 +2,7 @@ const contentType = {
   'Content-Type': 'application/json',
 };
 
-class api {
+class Api {
   constructor({ baseUrl, headers, timeout }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
@@ -107,8 +107,8 @@ class api {
   }
 }
 
-export { api };
-export default new api({
+export { Api };
+export default new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-20',
   headers: {
     authorization: '6577e49f-15b9-4798-93b6-109a6b031458',
