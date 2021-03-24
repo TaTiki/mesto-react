@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
 import PopupWithForm from './PopupWithForm';
+
 export default function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -38,6 +39,5 @@ export default function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
       <input className="form__input" type="text" id="edit-profile-hobby"
       placeholder="хобби" required minLength="2" maxLength="200" onChange = {handleOnChange}/>
     </PopupWithForm>
-
   );
 } 

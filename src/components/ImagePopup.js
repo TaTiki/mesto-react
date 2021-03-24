@@ -1,6 +1,5 @@
 export default function ImagePopup({ card, onClose }) {
 
-
   return (
     <div className={card.link ? "popup popup_opened" : "popup"} id="show-photo">
       <div className="popup__container popup__container-photos">
