@@ -1,30 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import api from '../utils/api';
 import Card from './Card';
 
-export default function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
-
-  const [user, setUser] = useState({});
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    Promise.all([
-      api.getUser(),
-      api.getInitialCards(),
-    ]).then(([user, cards]) => {
-      setUser(user);
-      setCards(cards);
-    }).catch((err) => {
-      console.log(err)
-    });
-    /*api.getUser()
-    .then(setUser).catch(console.log);
-
-    api.getInitialCards()
-    .then(setCards).catch(console.log);
-    */
-  }, []);
-
+export default function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, cards, onCardLike, onCardDelete }) {
+  const user = useContext(CurrentUserContext);
+ 
   return (
     <main>
       <section className="profile">
@@ -58,7 +39,7 @@ export default function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardCl
         <ul className="photos__list">
           {
             cards.map(card => (
-              <Card card={card} key={card._id} onCardClick={onCardClick}/>
+              <Card card={card} key={card._id} onCardClick={onCardClick} onCardLike = {onCardLike} onCardDelete = {onCardDelete}/>
             ))
           }
         </ul>

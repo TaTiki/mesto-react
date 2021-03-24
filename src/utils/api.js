@@ -34,7 +34,7 @@ class Api {
     return this._request(
       'PATCH',
       `${this._baseUrl}/users/me/avatar`,
-      JSON.stringify({ avatar })
+      JSON.stringify(avatar)
     ).then((user) => (
       user.json()
     ));
