@@ -34,10 +34,10 @@ export default function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
       isOpen ={isOpen} onClose={onClose} onSubmit = {handleSubmit}>
 
       <input className="form__input" type="text" id="edit-profile-name" 
-      placeholder="имя" required minLength="2" maxLength="40" onChange = {handleOnChange}/>
+      placeholder="имя" value = {name} required minLength="2" maxLength="40" onChange = {handleOnChange}/>
 
       <input className="form__input" type="text" id="edit-profile-hobby"
-      placeholder="хобби" required minLength="2" maxLength="200" onChange = {handleOnChange}/>
+      placeholder="хобби" value = {description} required minLength="2" maxLength="200" onChange = {handleOnChange}/>
     </PopupWithForm>
   );
 } 
