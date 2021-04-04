@@ -46,3 +46,10 @@
 @import url(./blocks/form/-delete-card/form-delete-card.css);
 @import url(./blocks/form/__header-question/form__header-question.css);
 @import url(./blocks/form/__save-yes/form__save-yes.css);
+@import url(./blocks/form/-register/form-register.css);
+@import url(./blocks/title/title.css);
+@import url(./blocks/form/__input-email/form__input-email.css);
+@import url(./blocks/form/-save/form-save.css);
+@import url(./blocks/form/__signin/form__signin.css);
+@import url(./blocks/header/__email/header__email.css);
+@import url(./blocks/header/__link/header__link.css);
