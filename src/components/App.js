@@ -64,7 +64,7 @@ function App({history}) {
 
   useEffect(() => {
     if(JWT) {
-      handleTokenCheck();
+      handleTokenCheck(JWT);
     } 
   }, [JWT])
 
@@ -110,6 +110,7 @@ function App({history}) {
 
   const handleSignIn = (email, password) => {
     auth.signin(email, password).then((token) => {
+
       setSignSuccess(true)
       setJWT(token);
      
