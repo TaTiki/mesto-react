@@ -53,3 +53,6 @@
 @import url(./blocks/form/__signin/form__signin.css);
 @import url(./blocks/header/__email/header__email.css);
 @import url(./blocks/header/__link/header__link.css);
+@import url(./blocks/popup/__infotip/popup__infotip.css);
+@import url(./blocks/popup/__picture-img/popup__picture-img.css);
+@import url(./blocks/popup/__text-title/popup__text-title.css);

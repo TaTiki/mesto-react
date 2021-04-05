@@ -12,27 +12,28 @@ import { Switch, Route, withRouter, useLocation } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 import ProtectedRoute from "./ProtectedRoute";
-import auth, { Auth } from '../utils/auth';
+import auth from '../utils/auth';
+import InfoTooltip from "./InfoTooltip";
 
 function App({history}) {
 
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [JWT, setJWT] = useState('');
   const [email, setEmail] = useState('');
   const [headerProps, setHeaderProps] = useState({buttonText: '', onClick: () => {}});
+  const [signSuccess, setSignSuccess] = useState(false);
 
   const { pathname } = useLocation();
 
   useEffect(() => {
-    console.log(pathname)
     switch (pathname) {
       case '/':
-        console.log(1) 
         setHeaderProps({
           buttonText: 'Выйти',
           onClick: () => {
@@ -43,7 +44,6 @@ function App({history}) {
         
         break;
       case '/sign-in': 
-      console.log(2)
         setHeaderProps({
           buttonText: 'Регистрация',
           onClick: () => {
@@ -53,7 +53,6 @@ function App({history}) {
         
         break;
       case '/sign-up': 
-      console.log(3)
         setHeaderProps({
           buttonText: 'Войти',
           onClick: () => {
@@ -64,13 +63,17 @@ function App({history}) {
   },[pathname] )
 
   useEffect(() => {
-    console.log('babis')
-    console.log(localStorage.getItem('JWT'))
-    
-    handleTokenCheck()
-    
-   
+    if(JWT) {
+      handleTokenCheck();
+    } 
   }, [JWT])
+
+  useEffect(() => {
+    const JWT = localStorage.getItem('JWT');
+    if(JWT) {
+      setJWT(JWT);
+    }
+  }, []);
 
   useEffect(() => {
     if(email) {
@@ -85,30 +88,36 @@ function App({history}) {
     }
   }, [email])
 
-  const handleTokenCheck = () => {
-    if(localStorage.getItem('JWT')) {
-      const JWT = localStorage.getItem('JWT');
+  const handleTokenCheck = (JWT) => {
       auth.getAuthUser(JWT).then((email) => {
         setEmail(email);
         history.push('/');
       }).catch(console.log)
-    }
   }
 
   const handleSignUp = (email, password) => {
-    console.log('babis')
     auth.signup(email, password).then(()=> {
+      setSignSuccess(true)
       history.push('/sign-in')
     })
-    .catch(console.log)
+    .catch(()=> {
+      setSignSuccess(false)
+    }).finally(()=>{
+      setInfoTooltipPopupOpen(true)
+    })
+   // setInfoTooltipPopupOpen(true);
   }
 
   const handleSignIn = (email, password) => {
     auth.signin(email, password).then((token) => {
-      console.log(token)
+      setSignSuccess(true)
       setJWT(token);
      
-    }).catch(console.log)
+    }).catch(() => {
+      setSignSuccess(false)
+    }).finally(() => {
+      setInfoTooltipPopupOpen(true)
+    })
   }
 
   const handleEditAvatarClick = () => {
@@ -132,6 +141,7 @@ function App({history}) {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setSelectedCard({});
+    setInfoTooltipPopupOpen(false);
   };
 
   const handleUpdateUser = (userInfo) => {
@@ -180,6 +190,7 @@ function App({history}) {
         <EditProfilePopup isOpen ={isEditProfilePopupOpen} onClose ={closeAllPopups} onUpdateUser = {handleUpdateUser}/> 
         <EditAvatarPopup isOpen ={isEditAvatarPopupOpen} onClose ={closeAllPopups} onUpdateAvatar = {handleUpdateAvatar}/> 
         <AddPlacePopup isOpen = {isAddPlacePopupOpen} onClose = {closeAllPopups} onAddPlace = {handleAddPlace}/>
+        <InfoTooltip isOpen = {isInfoTooltipPopupOpen} success = {signSuccess} onClose = {closeAllPopups}/>
 
         <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
 
